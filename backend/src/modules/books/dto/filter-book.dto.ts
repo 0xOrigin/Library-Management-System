@@ -8,5 +8,11 @@ export class FilterBookDto extends FilterCoreDto {
   title: string | object;
 
   @IsOptional()
+  author: string | object;
+
+  @IsOptional()
+  isbn: string | object;
+
+  @IsOptional()
   createdAt: Date | object;
 }
