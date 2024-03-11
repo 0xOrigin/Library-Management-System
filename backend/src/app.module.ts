@@ -17,8 +17,6 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ScheduleModule } from '@nestjs/schedule';
 import { DataSource } from 'typeorm';
 import { RedisClientOptions } from 'redis';
-import { AuthModule } from './modules/auth/auth.module';
-import { UsersModule } from './modules/users/users.module';
 import { AuthMiddleware } from './middlewares';
 import { PostgresConfigService } from './databases';
 import {
@@ -30,7 +28,10 @@ import { AdminSeeder } from './databases/seeders';
 import { RolesGuard } from './guards';
 import * as appConfig from './config';
 import * as constants from './config/constants';
+import { AuthModule } from './modules/auth/auth.module';
+import { UsersModule } from './modules/users/users.module';
 import { BooksModule } from './modules/books/books.module';
+import { BorrowingProcess } from './modules/borrowing-process/models/borrowing-process.model';
 
 @Module({
   imports: [
@@ -69,6 +70,7 @@ import { BooksModule } from './modules/books/books.module';
     AuthModule,
     UsersModule,
     BooksModule,
+    BorrowingProcess,
   ],
   controllers: [],
   providers: [

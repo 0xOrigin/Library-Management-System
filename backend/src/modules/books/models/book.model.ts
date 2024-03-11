@@ -1,5 +1,6 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { Audit } from 'src/modules/core/models/audit.model';
+import { BorrowingProcess } from 'src/modules/borrowing-process/models/borrowing-process.model';
 
 @Entity()
 export class Book extends Audit {
@@ -17,4 +18,7 @@ export class Book extends Audit {
 
   @Column({ type: 'varchar', length: 200, nullable: false })
   shelfLocation: string;
+
+  @OneToMany(() => BorrowingProcess, (borrowing) => borrowing.book)
+  borrowings: BorrowingProcess[];
 }

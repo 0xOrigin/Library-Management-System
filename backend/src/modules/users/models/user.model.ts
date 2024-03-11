@@ -1,6 +1,7 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
 import { ROLE_TYPE } from 'src/config/constants';
 import { Audit } from 'src/modules/core/models/audit.model';
+import { BorrowingProcess } from 'src/modules/borrowing-process/models/borrowing-process.model';
 
 @Entity()
 export class User extends Audit {
@@ -47,4 +48,7 @@ export class User extends Audit {
 
   @Column({ nullable: false })
   role: ROLE_TYPE;
+
+  @OneToMany(() => BorrowingProcess, (borrowing) => borrowing.user)
+  borrowings: BorrowingProcess[];
 }
