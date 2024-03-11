@@ -1,0 +1,17 @@
+# Building dependencies
+dist.do
+node_modules
+
+# Versioning and metadata
+.git
+.gitignore
+.dockerignore
+
+# Environment variables
+*.env
+.env.temp
+
+# Misc
+.prettierrc
+.eslintrc.js
+README.md

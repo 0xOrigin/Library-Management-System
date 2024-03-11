@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  postgres_db:
+    image: postgres:16.1-alpine
+    restart: always
+    user: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+      - ./postgresql/:/docker-entrypoint-initdb.d/
+    env_file:
+      - ./.env
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - projectnetwork
+  redis:
+    image: redis:7.2.4-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/redis_data
+    env_file:
+      - ./.env
+    networks:
+      - projectnetwork
+  nestjs:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: development # target: production
+      args:
+        - PORT=${PORT}
+    restart: always
+    command: sh -c "npm run migration:run && npm run start:dev"
+    volumes:
+      - static_volume:/home/app/backend/src/statics
+      - ./.env:/home/app/.env
+      - ./backend:/home/app/backend
+      - ./backend/node_modules:/home/app/backend/node_modules
+    ports:
+      - '3000:3000'
+    env_file:
+      - ./.env
+    depends_on:
+      - postgres_db
+    links:
+      - postgres_db:postgres_db
+    networks:
+      - projectnetwork
+  nginx:
+    build: ./nginx
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - static_volume:/home/app/backend/src/statics
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+    depends_on:
+      - nestjs
+    networks:
+      - projectnetwork
+
+networks:
+  projectnetwork:
+      driver: bridge
+
+volumes:
+  static_volume:
+  postgres_data:
+  redis_data:
