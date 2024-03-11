@@ -1,4 +1,10 @@
-import { MiddlewareConsumer, Module, NestModule, Scope } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+  Scope,
+} from '@nestjs/common';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -24,6 +30,7 @@ import { AdminSeeder } from './databases/seeders';
 import { RolesGuard } from './guards';
 import * as appConfig from './config';
 import * as constants from './config/constants';
+import { BooksModule } from './modules/books/books.module';
 
 @Module({
   imports: [
@@ -61,6 +68,7 @@ import * as constants from './config/constants';
     ScheduleModule.forRoot(),
     AuthModule,
     UsersModule,
+    BooksModule,
   ],
   controllers: [],
   providers: [
@@ -91,6 +99,12 @@ export class AppModule implements NestModule {
   constructor(private dataSource: DataSource) {}
 
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes('*');
+    consumer
+      .apply(AuthMiddleware)
+      .exclude({
+        path: 'v1/auth/login',
+        method: RequestMethod.POST,
+      })
+      .forRoutes('*');
   }
 }
