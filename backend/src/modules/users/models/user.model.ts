@@ -1,4 +1,4 @@
-import { Entity, Column, OneToMany } from 'typeorm';
+import { Entity, Column, OneToMany, Index } from 'typeorm';
 import { ROLE_TYPE } from 'src/config/constants';
 import { Audit } from 'src/modules/core/models/audit.model';
 import { BorrowingProcess } from 'src/modules/borrowing-process/models/borrowing-process.model';
@@ -12,9 +12,11 @@ export class User extends Audit {
   lastName: string;
 
   @Column({ unique: true, nullable: false, length: 30 })
+  @Index()
   username: string;
 
   @Column({ unique: true, nullable: false, length: 50 })
+  @Index()
   email: string;
 
   @Column({ nullable: false })
