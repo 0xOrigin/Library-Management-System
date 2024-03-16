@@ -31,7 +31,7 @@ import * as constants from './config/constants';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { BooksModule } from './modules/books/books.module';
-import { BorrowingProcess } from './modules/borrowing-process/models/borrowing-process.model';
+import { BorrowingProcessModule } from './modules/borrowing-process/borrowing-process.module';
 
 @Module({
   imports: [
@@ -70,7 +70,7 @@ import { BorrowingProcess } from './modules/borrowing-process/models/borrowing-p
     AuthModule,
     UsersModule,
     BooksModule,
-    BorrowingProcess,
+    BorrowingProcessModule,
   ],
   controllers: [],
   providers: [
