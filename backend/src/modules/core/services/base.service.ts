@@ -21,9 +21,9 @@ export abstract class BaseService {
   }
 
   // Error handling
-  protected handleNotFound(instance: any): void | never {
+  protected handleNotFound(instance: any, message = 'Instance not found'): void | never {
     if (!instance) {
-      throw new NotFoundException('Instance not found');
+      throw new NotFoundException(message);
     }
   }
 
