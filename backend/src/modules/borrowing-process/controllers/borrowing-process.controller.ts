@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   ParseUUIDPipe,
   Post,
@@ -83,6 +85,7 @@ export class BorrowingProcessController extends CoreController {
   }
 
   @Post('checkout/:bookId')
+  @HttpCode(HttpStatus.OK)
   async checkout(
     @Param('bookId', ParseUUIDPipe) bookId: string,
     @CurrentUser() user: object,
