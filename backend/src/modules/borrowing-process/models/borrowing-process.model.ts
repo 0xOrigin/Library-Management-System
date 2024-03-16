@@ -1,4 +1,4 @@
-import { Column, Entity, In, Index, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Book } from 'src/modules/books/models/book.model';
 import { Audit } from 'src/modules/core/models/audit.model';
 import { User } from 'src/modules/users/models/user.model';
