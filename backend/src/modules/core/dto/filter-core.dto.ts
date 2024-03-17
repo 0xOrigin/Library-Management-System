@@ -3,9 +3,10 @@ import { PaginationDto } from './pagination.dto';
 import { ToBoolean } from 'src/decorators';
 
 /**
- * Important note: This class is intended to be extended by other DTOs.
- * In order to enable filtering operators: 
- * 1- DTO that extends this class must have properties that match the entity's fields
+ * Important note: This class is intended to be extended by other DTOs 
+ * to enable pagination, filtering, and sorting query parameters.
+ * In order to enable filtering operators:
+ * 1- DTO that extends this class must have properties that match the entity's fields.
  * 2- Type of the properties must contain object. Example: string | object
  */
 export class FilterCoreDto extends PaginationDto {

@@ -3,6 +3,12 @@ import { UUID_VERSION } from 'src/config';
 import { BaseController } from './base.controller';
 import { CoreFindManyOptions, CoreFindOneOptions } from '../types';
 
+/**
+ * @description A class that contains the basic CRUD operations for the entity.
+ * It extends the [BaseController] class to inherit the basic CRUD operations and some API features.
+ * It is an abstract class to be extended by the child controllers to implement the entity specific CRUD operations.
+ * It is a generic class to be used with any entity.
+ */
 export abstract class CoreController extends BaseController {
   /**
    * @description Create a new instance of the entity.
